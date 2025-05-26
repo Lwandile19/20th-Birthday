@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Amu's Polaroid Memories</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      background: #f5f0ff; /* Light lavender */
+      color: #4B0082;
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .header {
+      margin-bottom: 3rem;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      color: #8A2BE2;
+      text-shadow: 2px 2px 4px rgba(147, 112, 219, 0.3);
+      margin-bottom: 1rem;
+    }
+    
+    .subtitle {
+      font-size: 1.5rem;
+      color: #9370DB;
+    }
+    
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .polaroid {
+      background: white;
+      padding: 1rem 1rem 3rem;
+      box-shadow: 0 4px 15px rgba(147, 112, 219, 0.3);
+      width: 280px;
+      transform: rotate(-3deg);
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    /* Alternate rotation */
+    .polaroid:nth-child(even) {
+      transform: rotate(2deg);
+    }
+    .polaroid:nth-child(3n) {
+      transform: rotate(-5deg);
+    }
+    
+    .polaroid:hover {
+      transform: rotate(0deg) scale(1.05);
+      box-shadow: 0 10px 25px rgba(147, 112, 219, 0.4);
+      z-index: 2;
+    }
+    
+    .polaroid-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border: 1px solid #E6E6FA;
+    }
+    
+    .polaroid-caption {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      color: #4B0082;
+      text-align: center;
+      padding: 0 0.5rem;
+    }
+    
+    .polaroid-date {
+      font-size: 0.9rem;
+      color: #9370DB;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+    
+    .back-btn {
+      display: inline-block;
+      margin-top: 3rem;
+      padding: 1rem 2rem;
+      background: #9370DB;
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(75, 0, 130, 0.2);
+    }
+    
+    .back-btn:hover {
+      background: #4B0082;
+      transform: scale(1.05);
+    }
+    
+    /* Floating hearts decoration */
+    .heart {
+      position: fixed;
+      font-size: 1.5rem;
+      opacity: 0;
+      z-index: 10;
+      pointer-events: none;
+      animation: floatUp 5s linear forwards;
+    }
+    
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .gallery {
+        gap: 2rem;
+      }
+      
+      .polaroid {
+        width: 240px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Amu's Polaroid Memories💜</h1>
+    <div class="subtitle">Every picture tells a story</div>
+  </div>
+<!-- In your gallery section -->
+<div class="gallery">
+    <!-- Polaroid 1 -->
+    <div class="polaroid">
+        <img src="Images/Screenshot_20231129_172633_WhatsApp.jpg" alt="Grade 8" class="polaroid-img">
+        <div class="polaroid-caption">Being too cool, prrr!</div>
+    </div>
+    
+    <!-- Polaroid 2 -->
+    <div class="polaroid">
+        <img src="Images/IMG-20230611-WA0026.jpg" alt="Tsonga Hun" class="polaroid-img">
+        <div class="polaroid-caption">Expressing the culture!</div>
+    </div>
+    
+    <!-- Polaroid 3 -->
+    <div class="polaroid">
+        <img src="Images/IMG-20230611-WA0023.jpg" alt="On the Phone" class="polaroid-img">
+        <div class="polaroid-caption">Vibey field trip!</div>
+    </div>
+    
+    <!-- Polaroid 4 -->
+    <div class="polaroid">
+        <img src="Images/20231209_103310.jpg" alt="Prr-shopping" class="polaroid-img">
+        <div class="polaroid-caption">Shopping adventures!</div>
+    </div>
+    
+    <!-- Polaroid 5 -->
+    <div class="polaroid">
+        <img src="Images/IMG-20230505-WA0085.jpg" alt="Fashion show" class="polaroid-img">
+        <div class="polaroid-caption">Best dressed!</div>
+    </div>
+    
+    <!-- Polaroid 6 -->
+    <div class="polaroid">
+        <img src="Images/WhatsApp Image 2025-04-21 at 12.02.44_17265228.jpg" alt="Pretty Girl" class="polaroid-img">
+        <div class="polaroid-caption">Feeling pretty!</div>
+    </div>
+</div>
+  <a href="Birthday-Website.html" class="back-btn">Back to Countdown</a>
+  <a href="poem.html" class="back-btn">Secret Message</a>
+
+  <script>
+    // Create floating hearts
+    function createHearts() {
+      setInterval(() => {
+        if (Math.random() > 0.7) {
+          const heart = document.createElement('div');
+          heart.className = 'heart';
+          heart.innerHTML = '💜';
+          heart.style.left = Math.random() * 100 + 'vw';
+          heart.style.top = '100vh';
+          heart.style.animationDuration = 3 + Math.random() * 4 + 's';
+          heart.style.fontSize = (20 + Math.random() * 20) + 'px';
+          document.body.appendChild(heart);
+          
+          setTimeout(() => heart.remove(), 5000);
+        }
+      }, 800);
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      createHearts();
+      
+      // Add slight delay to polaroid appearance
+      const polaroids = document.querySelectorAll('.polaroid');
+      polaroids.forEach((pol, i) => {
+        setTimeout(() => {
+          pol.style.opacity = '1';
+        }, i * 150);
+      });
+    });
+  </script>
+</body>
+</html>

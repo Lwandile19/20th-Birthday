@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For you</title>
+  <style>
+    body {
+      font-family: 'Dancing Script', cursive;
+      background: #fdf2f5;
+      color: #5d3a3a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-image: radial-gradient(#ffd6e7 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      background: white;
+      padding: 3rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 10px;
+      background: linear-gradient(90deg, #ff7eb3, #ff758c);
+    }
+
+    h1 {
+      color: #d23669;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-weight: normal;
+      font-size: 2.2rem;
+    }
+
+    .poem {
+      line-height: 1.8;
+      font-size: 1.1rem;
+      text-align: center;
+      white-space: pre-line;
+    }
+
+    .signature {
+      font-style: italic;
+      text-align: right;
+      margin-top: 2rem;
+      color: #d23669;
+    }
+
+    .password-container {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    input {
+      padding: 0.8rem 1rem;
+      border: 1px solid #ffb3c6;
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 200px;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(90deg, #ff7eb3, #ff758c);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    .error {
+      color: #d23669;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+	
+    .nav-btn {
+      display: inline-block;
+      margin: 0.5rem;
+      padding: 0.7rem 1.5rem;
+      background: #9370DB;
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(75, 0, 130, 0.2);
+    }
+
+    .nav-btn:hover {
+      background: #4B0082;
+      transform: scale(1.05);
+    }
+	
+    .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 1.2rem;
+      opacity: 0;
+      animation: float 5s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.7; }
+      80% { opacity: 0.7; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+
+  <div class="container" id="password-screen">
+    <h1>For you💖</h1>
+    <p style="text-align: center;">Enter your phone password to continue:</p>
+    <div class="password-container">
+      <input type="password" id="password-input" placeholder="	The best day ever">
+      <button onclick="checkPassword()">Unlock</button>
+      <p class="error" id="error-message">Incorrect password, try again</p>
+    </div>
+  </div>
+
+  <div class="container hidden" id="poem-screen">
+    <h1>You feel like everything</h1>
+    <div class="poem">
+With you, I feel at peace,
+A calm that never fades.
+When you hold me close,
+When you laugh with me,
+Babe, when you smile... it brightens my day.
+
+I am happy.
+I am whole.
+You fill my thoughts, endlessly.
+You light up my dreams like the morning sun.
+
+I miss you when you're away,
+Even when you're resting.
+Even on our busy calls—
+I miss you in the quiet moments too.
+
+You have the kindest heart,
+A spirit so warm and true.
+You're my best friend,
+My partner,
+And most importantly... my safe place.
+
+With you, everything feels right.
+"Love" doesn't quite capture
+What I feel for you.
+I'm not a poet—
+But for you,
+I had to try.
+    </div>
+    <div class="signature">Always yours</div>
+	 <div class="buttons">
+      <a href="Her.html" class="nav-btn">Back to Amu's Memories</a>
+      <a href="Birthday-Website.html" class="nav-btn">Back to Countdown</a>
+    </div>
+  </div>
+
+  <script>
+    // Create floating hearts
+    function createHearts() {
+      const heartsContainer = document.getElementById('hearts');
+      const heartEmojis = ['💖', '❤️', '🧡', '💛', '💚', '💙', '💜'];
+      
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = '100vh';
+        heart.style.animationDuration = 3 + Math.random() * 7 + 's';
+        heart.style.fontSize = (15 + Math.random() * 25) + 'px';
+        heartsContainer.appendChild(heart);
+        
+        setTimeout(() => heart.remove(), 8000);
+      }, 300);
+    }
+
+    // Password check
+    function checkPassword() {
+      const password = document.getElementById('password-input').value;
+      const correctPassword = "270505"; // Phone Password
+      const errorMessage = document.getElementById('error-message');
+      
+      if (password === correctPassword) {
+        document.getElementById('password-screen').classList.add('hidden');
+        document.getElementById('poem-screen').classList.remove('hidden');
+      } else {
+        errorMessage.style.display = 'block';
+        document.getElementById('password-input').value = '';
+        setTimeout(() => errorMessage.style.display = 'none', 2000);
+      }
+    }
+
+    // Allow pressing Enter to submit
+    document.getElementById('password-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        checkPassword();
+      }
+    });
+
+    // Start animations
+    document.addEventListener('DOMContentLoaded', createHearts);
+  </script>
+</body>
+</html>
