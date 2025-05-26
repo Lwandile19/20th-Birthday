@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Amu's Adulthood</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS';
+      font-size: 1.5rem;
+      text-align: center;
+      background: #E6E6FA;
+      color: #4B0082;
+      overflow-x: hidden;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    button {
+      font-size: 1.5rem;
+      padding: 1rem 2rem;
+      background: #9370DB;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 8px rgba(75, 0, 130, 0.2);
+      position: relative;
+      z-index: 1;
+    }
+    button:hover {
+      background-color: #4B0082;
+      transform: scale(1.1); 
+    }
+    #countdown {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 1.5rem;
+      background-color: white;
+      color: black;
+      padding: 1rem 2rem;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(147, 112, 219, 0.5);
+      margin: 30px auto;
+      border: 2px solid #D8BFD8;
+      position: relative;
+      z-index: 1;
+      max-width: 90%;
+    }
+    .time-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 10px;
+    }
+    .circle {
+      background: #9370DB;
+      width: 60px;
+      height: 60px;
+      border-radius: 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(75, 0, 130, 0.3);
+      color: white;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .circle:hover {
+      transform: scale(1.05);
+      background: #8A2BE2;
+    }
+    .label {
+      font-size: 1rem;
+      margin-top: 8px;
+      color: #4B0082;
+      font-weight: bold;
+    }
+    h1 {
+      color: #8A2BE2;
+      text-shadow: 1px 1px 2px rgba(147, 112, 219, 0.3);
+      position: relative;
+      z-index: 1;
+    }
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: #9370DB;
+      opacity: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .balloon {
+      position: absolute;
+      width: 40px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      bottom: -60px;
+      animation: floatUp 8s linear forwards;
+    }
+    @keyframes floatUp {
+      to {
+        bottom: 100vh;
+        opacity: 0.7;
+      }
+    }
+    .balloon-string {
+      position: absolute;
+      width: 2px;
+      height: 30px;
+      background: #D8BFD8;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>🎉 Happy Birthday! 🎉</h1>
+
+  <div id="countdown">
+    <div class="time-box">
+      <div class="circle" id="years">0</div>
+      <div class="label">Years</div>
+    </div>
+    <div class="time-box">
+      <div class="circle" id="months">0</div>
+      <div class="label">Months</div>
+    </div>
+    <div class="time-box">
+      <div class="circle" id="days">0</div>
+      <div class="label">Days</div>
+    </div>
+    <div class="time-box">
+      <div class="circle" id="hours">0</div>
+      <div class="label">Hours</div>
+    </div>
+    <div class="time-box">
+      <div class="circle" id="minutes">0</div>
+      <div class="label">Minutes</div>
+    </div>
+    <div class="time-box">
+      <div class="circle" id="seconds">0</div>
+      <div class="label">Seconds</div>
+    </div>
+  </div>
+  
+  <p style="color: #4B0082;">Click the balloons to pop them!</p>
+  <button onclick="goToVault()">Enter the vault</button>
+
+  <script>
+    const birthDate = new Date("2005-05-27T00:00:00");
+    const colors = ['#E6E6FA', '#D8BFD8', '#9370DB', '#8A2BE2'];
+
+    // Update countdown
+    function updateCountdown() {
+      const now = new Date();
+      let diff = now - birthDate;
+
+      const seconds = Math.floor(diff / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+      const years = Math.floor(days / 365.25);
+      const months = Math.floor((days % 365.25) / 30.44);
+      const remainingDays = Math.floor((days % 365.25) % 30.44);
+      const remainingHours = hours % 24;
+      const remainingMinutes = minutes % 60;
+      const remainingSeconds = seconds % 60;
+
+      document.getElementById("years").innerText = years;
+      document.getElementById("months").innerText = months;
+      document.getElementById("days").innerText = remainingDays;
+      document.getElementById("hours").innerText = remainingHours;
+      document.getElementById("minutes").innerText = remainingMinutes;
+      document.getElementById("seconds").innerText = remainingSeconds;
+    }
+
+    // Create continuous confetti
+    function createContinuousConfetti() {
+      setInterval(() => {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-10px';
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        document.body.appendChild(confetti);
+
+        const duration = 3000 + Math.random() * 5000;
+        confetti.animate([
+          { top: '-10px', transform: 'rotate(0deg)', opacity: 1 },
+          { top: '100vh', transform: 'rotate(360deg)', opacity: 0 }
+        ], { duration, easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)' });
+        
+        setTimeout(() => confetti.remove(), duration);
+      }, 100);
+    }
+
+    // Create balloons with strings
+    function createBalloon() {
+      const balloon = document.createElement('div');
+      balloon.className = 'balloon';
+      balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      balloon.style.left = Math.random() * 80 + 10 + '%';
+      
+      // Add string to balloon
+      const string = document.createElement('div');
+      string.className = 'balloon-string';
+      balloon.appendChild(string);
+      
+      document.body.appendChild(balloon);
+      
+      // Pop balloon on click
+      balloon.addEventListener('click', () => {
+        balloon.innerHTML = '💥';
+        balloon.style.animation = 'none';
+        balloon.style.transform = 'scale(1.5)';
+        balloon.style.transition = 'transform 0.3s, opacity 0.3s';
+        balloon.style.opacity = '0';
+        setTimeout(() => balloon.remove(), 300);
+      });
+      
+      // Remove balloon after animation completes
+      setTimeout(() => {
+        if (balloon.parentNode) {
+          balloon.style.opacity = '0';
+          setTimeout(() => balloon.remove(), 300);
+        }
+      }, 8000);
+    }
+
+    // Create continuous balloons
+    function createContinuousBalloons() {
+      // Initial balloons
+      for (let i = 0; i < 8; i++) {
+        setTimeout(createBalloon, i * 800);
+      }
+      
+      // Ongoing balloons
+      setInterval(createBalloon, 1500);
+    }
+
+    function goToVault() {
+      window.location.href = "Her.html";
+    }
+
+    // Initialize everything when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+      createContinuousConfetti();
+      createContinuousBalloons();
+    });
+  </script>
+</body>
+</html>
